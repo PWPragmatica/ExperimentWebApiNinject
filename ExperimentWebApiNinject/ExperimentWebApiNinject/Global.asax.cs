@@ -19,7 +19,6 @@ namespace ExperimentWebApiNinject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            WebApiFilterConfig.RegisterGlobalFilters(GlobalConfiguration.Configuration.Filters);
         }
     }
 }

@@ -5,6 +5,10 @@ using Ninject;
 using Ninject.Web.Common;
 using System;
 using System.Web;
+using Ninject.Web.WebApi.FilterBindingSyntax;
+using ExperimentWebApiNinject.ActionFilters;
+using System.Web.Http.Filters;
+
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(ExperimentWebApiNinject.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(ExperimentWebApiNinject.App_Start.NinjectWebCommon), "Stop")]
@@ -62,6 +66,11 @@ namespace ExperimentWebApiNinject.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IDateTimeProvider>().To<DateTimeProvider>();
+            kernel.BindHttpFilter<MyGlobalActionFilter>(FilterScope.Global);
+
+    //.When((controllerContext, actionDescriptor) => 
+    //        actionDescriptor.ControllerDescriptor.GetCustomAttributes<ApiValidationAttribute>().Any());
+
         }        
     }
 }
