@@ -1,12 +1,12 @@
+using ExperimentWebApiNinject.ActionFilters;
 using ExperimentWebApiNinject.Utilities;
 using ExperimentWebApiNinject.Utilities.Interface;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
+using Ninject.Web.WebApi.FilterBindingSyntax;
 using System;
 using System.Web;
-using Ninject.Web.WebApi.FilterBindingSyntax;
-using ExperimentWebApiNinject.ActionFilters;
 using System.Web.Http.Filters;
 
 
@@ -15,20 +15,20 @@ using System.Web.Http.Filters;
 
 namespace ExperimentWebApiNinject.App_Start
 {
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -36,7 +36,7 @@ namespace ExperimentWebApiNinject.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -67,10 +67,8 @@ namespace ExperimentWebApiNinject.App_Start
         {
             kernel.Bind<ILog>().To<Log>();
             kernel.BindHttpFilter<MyGlobalActionFilter>(FilterScope.Global);
-
-    //.When((controllerContext, actionDescriptor) => 
-    //        actionDescriptor.ControllerDescriptor.GetCustomAttributes<ApiValidationAttribute>().Any());
-
-        }        
+            kernel.BindHttpFilter(x => new MyControllerActionFilter(x.Inject<ILog>()), FilterScope.Controller).WhenControllerHas<MyControllerActionAttribute>();
+            kernel.BindHttpFilter(x => new MyActionFilter(x.Inject<ILog>()), FilterScope.Action).WhenActionMethodHas<MyActionAttribute>();
+        }
     }
 }

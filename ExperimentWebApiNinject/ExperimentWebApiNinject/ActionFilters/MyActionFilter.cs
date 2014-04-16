@@ -1,9 +1,11 @@
 ﻿using ExperimentWebApiNinject.Utilities.Interface;
 using Ninject.Web.WebApi.Filter;
-using System.Diagnostics;
+using System;
 
 namespace ExperimentWebApiNinject.ActionFilters
 {
+    public class MyActionAttribute : Attribute { }
+
     public class MyActionFilter : AbstractActionFilter
     {
         private readonly ILog log;
