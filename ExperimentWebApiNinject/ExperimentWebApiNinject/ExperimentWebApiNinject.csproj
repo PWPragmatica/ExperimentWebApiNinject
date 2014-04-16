@@ -202,8 +202,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\DateTimeProvider.cs" />
-    <Compile Include="Utilities\Interface\IDateTimeProvider.cs" />
+    <Compile Include="Utilities\Log.cs" />
+    <Compile Include="Utilities\Interface\ILog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

@@ -11,17 +11,18 @@ namespace ExperimentWebApiNinject.Controllers
 {
     public class ValuesController : ApiController
     {
-        private readonly IDateTimeProvider dateTimeProvider;
+        private readonly ILog log;
 
-        public ValuesController(IDateTimeProvider dateTimeProvider)
+        public ValuesController(ILog log)
         {
-            this.dateTimeProvider = dateTimeProvider;
+            this.log = log;
         }
 
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", dateTimeProvider.CurrentUtcTime().ToString() };
+            log.Write("ValuesController: Get()");
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

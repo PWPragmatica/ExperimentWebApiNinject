@@ -6,16 +6,16 @@ namespace ExperimentWebApiNinject.ActionFilters
 {
     public class MyActionFilter : AbstractActionFilter
     {
-        private readonly IDateTimeProvider dateTimeProvider;
+        private readonly ILog log;
 
-        public MyActionFilter(IDateTimeProvider dateTimeProvider)
+        public MyActionFilter(ILog log)
         {
-            this.dateTimeProvider = dateTimeProvider;
+            this.log = log;
         }
 
         public override void OnActionExecuting(System.Web.Http.Controllers.HttpActionContext actionContext)
         {
-            Debug.WriteLine(dateTimeProvider.CurrentUtcTime().ToString());
+            log.Write("MyActionFilter: OnActionExecuting");
             base.OnActionExecuting(actionContext);
         }
 

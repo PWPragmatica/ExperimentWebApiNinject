@@ -65,7 +65,7 @@ namespace ExperimentWebApiNinject.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IDateTimeProvider>().To<DateTimeProvider>();
+            kernel.Bind<ILog>().To<Log>();
             kernel.BindHttpFilter<MyGlobalActionFilter>(FilterScope.Global);
 
     //.When((controllerContext, actionDescriptor) => 

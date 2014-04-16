@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ExperimentWebApiNinject.Utilities.Interface
 {
-    public interface IDateTimeProvider
+    public interface ILog
     {
-        DateTime CurrentUtcTime();
+        void Write(string message);
     }
 }
